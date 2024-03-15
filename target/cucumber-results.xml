@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuite name="Cucumber" time="10.324" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Title of your feature" name="Title of your scenario" time="10.072">
+<system-out><![CDATA[
+Given Navigate to the flipcart page.........................................passed
+]]></system-out>
+</testcase>
+</testsuite>
