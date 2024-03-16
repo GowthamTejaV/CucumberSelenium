@@ -15,7 +15,7 @@ import org.openqa.selenium.safari.SafariDriver;
 public class DriverFactory {
 	private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
-	public WebDriver init_driver(String browser) {
+	public  WebDriver  init_driver(String browser) {
 		try {
 			System.out.println("browser value is: " + browser);
 			if (browser.equals("chrome")) {

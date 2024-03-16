@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Grasshopper Report</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Mar 15, 2024 10:54:19 pm</span></a>
+<a href="#"><span class="badge badge-primary">Mar 16, 2024 01:30:37 pm</span></a>
 </li>
 </ul>
 </div>
@@ -57,6 +57,11 @@
 <span class="ico"><i class="fa fa-tag"></i></span>
 </a>
 </li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
+</a>
+</li>
 </ul>
 </div>
 </div>      <div class="vcontainer">
@@ -66,25 +71,25 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Mar 15, 2024 10:54:19 pm</h3>
+<h3>Mar 16, 2024 01:30:37 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Mar 15, 2024 10:54:30 pm</h3>
+<h3>Mar 16, 2024 01:31:06 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Features Passed</p>
-<h3>1</h3>
+<h3>0</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Features Failed</p>
-<h3>0</h3>
+<h3>1</h3>
 </div></div>
 </div>
 </div>
@@ -100,12 +105,12 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'>
-<b>1</b> features passed
+<div><small data-tooltip='0%'>
+<b>0</b> features passed
 </small>
 </div>
 <div>
-<small data-tooltip='0%'><b>0</b> features failed,
+<small data-tooltip='100%'><b>1</b> features failed,
 <b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
@@ -123,9 +128,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>1</b> scenarios passed</small></div>
+<div><small data-tooltip='75%'><b>3</b> scenarios passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> scenarios failed,
+<small data-tooltip='25%'><b>1</b> scenarios failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
@@ -143,9 +148,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>2</b> steps passed</small></div>
+<div><small data-tooltip='90%'><b>9</b> steps passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> steps failed,
+<small data-tooltip='10%'><b>1</b> steps failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
@@ -162,7 +167,7 @@
 </div></div>
 <script>
 var timeline = {
-"Title of your feature":9.997
+"Title of your feature":27.935
 };
 </script>
 <div class="row">
@@ -173,19 +178,19 @@ var timeline = {
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
 <tr>
 <td>@tag</td>
+<td>3</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
+<td>75%</td>
 </tr>
 <tr>
 <td>@ignore</td>
+<td>3</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-<td>100%</td>
+<td>75%</td>
 </tr>
 </tbody>
 </table></div>
@@ -222,19 +227,19 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 1,
-failParent: 0,
+passParent: 0,
+failParent: 1,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
-passChild: 1,
-failChild: 0,
+passChild: 3,
+failChild: 1,
 warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 2,
-failGrandChild: 0,
+passGrandChild: 9,
+failGrandChild: 1,
 warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
@@ -250,7 +255,7 @@ eventsCount: 5,
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -264,25 +269,25 @@ eventsCount: 5,
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="pass" test-id="1"
+        <li class="test-item"  status="fail" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
             <p class="name">Title of your feature</p>
             <p class="text-sm">
-              <span>10:54:20 pm</span> / <span>00:00:09:997</span>
-              <span class="badge pass-bg log float-right">Pass</span>
+              <span>1:30:38 pm</span> / <span>00:00:27:935</span>
+              <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">Title of your feature</h5>
-<span class='badge badge-success'>03.15.2024 10:54:20 pm</span>
-<span class='badge badge-danger'>03.15.2024 10:54:30 pm</span>
-<span class='badge badge-default'>00:00:09:997</span>
+<h5 class="test-status text-fail">Title of your feature</h5>
+<span class='badge badge-success'>03.16.2024 1:30:38 pm</span>
+<span class='badge badge-danger'>03.16.2024 1:31:06 pm</span>
+<span class='badge badge-default'>00:00:27:935</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
@@ -294,7 +299,62 @@ eventsCount: 5,
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Title of your scenario</div>
+        <div class="node" id="2"><span class="badge log fail-bg mr-2">Fail</span>Title of your scenario4</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="">
+          <div class="card-body">
+              <div class="step pass-bg" title="Org.StepDefs.DemoPageSteps.navigate_to_the_flipcart_page()">
+                <span>Given Navigate to the flipcart page</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>Org.StepDefs.ApplicationHooks.afterStep(io.cucumber.java.Scenario)</span>
+      <div>DEMO_SCENARIO
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Screenshots/embedded4.png' src="../Screenshots/embedded4.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step fail-bg" title="Org.StepDefs.DemoPageSteps.demo_on_failed_step()">
+                <span>And Demo on failed step</span>
+      <div>
+        <textarea disabled class="code-block">java.lang.AssertionError: expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at org.testng.Assert.assertTrue(Assert.java:67)
+	at Org.StepDefs.DemoPageSteps.demo_on_failed_step(DemoPageSteps.java:26)
+	at ✽.Demo on failed step(file:///C:/Users/gowtham.teja/eclipse-workspace/CucumberSelenium/src/test/resources/features/DemoFile.feature:19)
+</textarea>
+      
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>Org.StepDefs.ApplicationHooks.afterStep(io.cucumber.java.Scenario)</span>
+      <div>DEMO_SCENARIO
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Screenshots/embedded5.png' src="../Screenshots/embedded5.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="3"><span class="badge log pass-bg mr-2">Pass</span>Title of your scenario1</div>
           <div class="status-avatar float-right mr-4">
             <i class="fa fa-paperclip"></i>
           </div>
@@ -312,6 +372,66 @@ eventsCount: 5,
       <div>DEMO_SCENARIO
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Screenshots/embedded1.png' src="../Screenshots/embedded1.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="4"><span class="badge log pass-bg mr-2">Pass</span>Title of your scenario3</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="Org.StepDefs.DemoPageSteps.navigate_to_the_flipcart_page()">
+                <span>Given Navigate to the flipcart page</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>Org.StepDefs.ApplicationHooks.afterStep(io.cucumber.java.Scenario)</span>
+      <div>DEMO_SCENARIO
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Screenshots/embedded2.png' src="../Screenshots/embedded2.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="5"><span class="badge log pass-bg mr-2">Pass</span>Title of your scenario2</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="Org.StepDefs.DemoPageSteps.navigate_to_the_flipcart_page()">
+                <span>Given Navigate to the flipcart page</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>Org.StepDefs.ApplicationHooks.afterStep(io.cucumber.java.Scenario)</span>
+      <div>DEMO_SCENARIO
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Screenshots/embedded3.png' src="../Screenshots/embedded3.png">
     
     </div></div>
 </div>
@@ -344,15 +464,17 @@ eventsCount: 5,
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log pass-bg'>1</span>
+<span class='badge log pass-bg'>3</span>
+<span class='badge log badge-danger'>1</span>
 </span>
 <p class="name">@tag</p>
-<p class="duration text-sm">1 tests</p>
+<p class="duration text-sm">4 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
 <h4>@tag</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -363,13 +485,43 @@ eventsCount: 5,
 </tr>
 </thead>
 <tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Title of your scenario4</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario4</span>
+</div>
+</td>
+</tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>22:54:20 pm</td>
+<td>13:30:38 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='2'>Title of your scenario</a>
+<a href="#" class="linked" test-id='1' id='3'>Title of your scenario1</a>
 <div class="">
-<span class="badge badge-default">Title of your feature.Title of your scenario</span>
+<span class="badge badge-default">Title of your feature.Title of your scenario1</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='4'>Title of your scenario3</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario3</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='5'>Title of your scenario2</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario2</span>
 </div>
 </td>
 </tr>
@@ -380,15 +532,17 @@ eventsCount: 5,
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log pass-bg'>1</span>
+<span class='badge log pass-bg'>3</span>
+<span class='badge log badge-danger'>1</span>
 </span>
 <p class="name">@ignore</p>
-<p class="duration text-sm">1 tests</p>
+<p class="duration text-sm">4 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
 <h4>@ignore</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -399,13 +553,95 @@ eventsCount: 5,
 </tr>
 </thead>
 <tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Title of your scenario4</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario4</span>
+</div>
+</td>
+</tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>22:54:20 pm</td>
+<td>13:30:38 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='2'>Title of your scenario</a>
+<a href="#" class="linked" test-id='1' id='3'>Title of your scenario1</a>
 <div class="">
-<span class="badge badge-default">Title of your feature.Title of your scenario</span>
+<span class="badge badge-default">Title of your feature.Title of your scenario1</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='4'>Title of your scenario3</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario3</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>13:30:38 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='5'>Title of your scenario2</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario2</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="test-wrapper row view exception-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>1</span>
+</span>
+<p class="name">java.lang.AssertionError</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>java.lang.AssertionError</h4>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>13:31:04 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='25'>And Demo on failed step</a>
+<div class="">
+<span class="badge badge-default">Title of your feature.Title of your scenario4.And Demo on failed step</span>
 </div>
 </td>
 </tr>

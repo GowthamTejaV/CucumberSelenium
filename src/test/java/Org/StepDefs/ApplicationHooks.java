@@ -59,7 +59,7 @@ public class ApplicationHooks {
 
 	@After(order = 0)
 	public void quiteBroswer() {
-		// driver.quit();
+		 driver.quit();
 	}
 
 }

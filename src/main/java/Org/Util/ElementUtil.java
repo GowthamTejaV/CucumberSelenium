@@ -33,9 +33,9 @@ import Org.factory.DriverFactory;
 import io.cucumber.java.Scenario;
 
 public class ElementUtil {
-	public static WebDriver driver=DriverFactory.getDriver();
-	public static WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-	public static JavascriptExecutor jse = (JavascriptExecutor) driver;
+
+	public static WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(50));
+	public static JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getDriver();
 	public static WebElement element;
 	public static String identifier;
 	public static String locator;
@@ -61,18 +61,18 @@ public class ElementUtil {
 
 	public static void zoomIn(int x) {
 		for (int i = 0; i < x; i++) {
-			driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, Keys.ADD));
+			DriverFactory.getDriver().findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, Keys.ADD));
 		}
 	}
 
 	public static void zoomOut(int x) {
 		for (int i = 0; i < x; i++) {
-			driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));
+			DriverFactory.getDriver().findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));
 		}
 	}
 
 	public static void zoomDefault() {
-		driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
+		DriverFactory.getDriver().findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL, "0"));
 	}
 
 	public static String addPassTextToExtentReport(String Text) {
@@ -99,7 +99,7 @@ public class ElementUtil {
 	public static String getURL(boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.getCurrentUrl();
+			value = DriverFactory.getDriver().getCurrentUrl();
 
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Got url:- [" + value + " ]");
@@ -115,7 +115,7 @@ public class ElementUtil {
 	public static String getPageTitle(boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.getTitle();
+			value = DriverFactory.getDriver().getTitle();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Page Titile is:- [ " + value + " ]");
 			}
@@ -129,7 +129,7 @@ public class ElementUtil {
 	public static String getPageURL(boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.getCurrentUrl();
+			value = DriverFactory.getDriver().getCurrentUrl();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Page URL is:- [ " + value + " ]");
 			}
@@ -143,7 +143,7 @@ public class ElementUtil {
 	public static String getPageSource(boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.getPageSource();
+			value = DriverFactory.getDriver().getPageSource();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Page Source is:- [ " + value + " ]");
 			}
@@ -156,30 +156,30 @@ public class ElementUtil {
 
 	public static void close(boolean printToReport) {
 		try {
-			driver.close();
+			DriverFactory.getDriver().close();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Closed Driver:- ");
 			}
 		} catch (Exception e) {
-			Assert.assertFalse("FAIL:- to close driver: " + e.toString(), true);
+			Assert.assertFalse("FAIL:- to close DriverFactory.getDriver(): " + e.toString(), true);
 		}
 	}
 
 	public static void quit(boolean printToReport) {
 		try {
-			driver.quit();
+			DriverFactory.getDriver().quit();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Quit Driver:- ");
 			}
 		} catch (Exception e) {
-			Assert.assertFalse("FAIL:- to quit driver: " + e.toString(), true);
+			Assert.assertFalse("FAIL:- to quit DriverFactory.getDriver(): " + e.toString(), true);
 		}
 	}
 
 	// navigation-commands
-	public static void navigateToURL(String url, boolean printToReport) {
+	public static synchronized void navigateToURL(String url, boolean printToReport) {
 		try {
-			driver.navigate().to(url);
+			DriverFactory.getDriver().navigate().to(url);
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Navigate to url:- [ " + url + " ]");
 			}
@@ -190,7 +190,7 @@ public class ElementUtil {
 
 	public static void navigateForward(boolean printToReport) {
 		try {
-			driver.navigate().forward();
+			DriverFactory.getDriver().navigate().forward();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Navigate browser forward:- ");
 			}
@@ -201,7 +201,7 @@ public class ElementUtil {
 
 	public static void navigateBackward(boolean printToReport) {
 		try {
-			driver.navigate().back();
+			DriverFactory.getDriver().navigate().back();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Navigate browser backward:- ");
 			}
@@ -212,7 +212,7 @@ public class ElementUtil {
 
 	public static void pageRefresh(boolean printToReport) {
 		try {
-			driver.navigate().refresh();
+			DriverFactory.getDriver().navigate().refresh();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Browser Refresh:- ");
 			}
@@ -226,7 +226,7 @@ public class ElementUtil {
 	public static void click(By by, String elemName) {
 		try {
 			waitForElementPresent(by, elemName, false);
-			driver.findElement(by).click();
+			DriverFactory.getDriver().findElement(by).click();
 			ExtentCucumberAdapter.addTestStepLog(elemClickSuccessMsg + elemName);
 
 		} catch (Exception ElementClickInterceptedException) {
@@ -238,7 +238,7 @@ public class ElementUtil {
 	public static void clear(By by, String elemName) {
 		try {
 			waitForElementPresent(by, elemName, false);
-			driver.findElement(by).clear();
+			DriverFactory.getDriver().findElement(by).clear();
 			ExtentCucumberAdapter.addTestStepLog("Successfully Cleared element:- " + elemName);
 
 		} catch (Exception e) {
@@ -248,11 +248,11 @@ public class ElementUtil {
 
 	public static void clearAlternative(By by, boolean printToReport) {
 		try {
-			driver.findElement(by).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-			String inputText = driver.findElement(by).getAttribute("value");
+			DriverFactory.getDriver().findElement(by).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+			String inputText = DriverFactory.getDriver().findElement(by).getAttribute("value");
 			if (inputText != null) {
 				for (int i = 0; i < inputText.length(); i++) {
-					driver.findElement(by).sendKeys(Keys.BACK_SPACE);
+					DriverFactory.getDriver().findElement(by).sendKeys(Keys.BACK_SPACE);
 				}
 			}
 			ExtentCucumberAdapter.addTestStepLog(" clear text");
@@ -265,16 +265,16 @@ public class ElementUtil {
 	}
 
 	public static void Jclick(By by, String elemName, boolean printToReport) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-				driver.findElement(by));
+		((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].click();",
+				DriverFactory.getDriver().findElement(by));
 	}
 
 	public static void type(By by, String textToType, String elemName) {
 		try {
 			waitForElementPresent(by, elemName, false);
 			// scrollToElement(by);
-			driver.findElement(by).clear();
-			driver.findElement(by).sendKeys(textToType);
+			DriverFactory.getDriver().findElement(by).clear();
+			DriverFactory.getDriver().findElement(by).sendKeys(textToType);
 			ExtentCucumberAdapter.addTestStepLog("PASS: Typed text:- [ " + textToType + " ] to element: " + elemName);
 		} catch (Exception ElementNotInteractableException) {
 
@@ -287,7 +287,7 @@ public class ElementUtil {
 		String value = "";
 		try {
 			waitForElementPresent(by, elemName, false);
-			value = driver.findElement(by).getText().trim();
+			value = DriverFactory.getDriver().findElement(by).getText().trim();
 			System.out.println("VALUE:- " + value);
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get text:- [ " + value + " from element: " + elemName);
@@ -295,10 +295,10 @@ public class ElementUtil {
 			return value;
 		} catch (Exception e) {
 			try {
-				value = driver.findElement(by).getAttribute("value");
+				value = DriverFactory.getDriver().findElement(by).getAttribute("value");
 			} catch (Exception e1) {
 				try {
-					value = driver.findElement(by).getAttribute("textContent");
+					value = DriverFactory.getDriver().findElement(by).getAttribute("textContent");
 					System.out.println("VALUE:- " + value);
 					if (printToReport) {
 						ExtentCucumberAdapter
@@ -318,7 +318,7 @@ public class ElementUtil {
 	public static String getTextValue(By by, String elemName, boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.findElement(by).getAttribute("value");
+			value = DriverFactory.getDriver().findElement(by).getAttribute("value");
 			System.out.println("VALUE:- " + value);
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get text:- [ " + value + " from element: " + elemName);
@@ -336,7 +336,7 @@ public class ElementUtil {
 		String value = "";
 		try {
 			waitForElementPresent(by, elemName, false);
-			value = driver.findElement(by).getTagName();
+			value = DriverFactory.getDriver().findElement(by).getTagName();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get TagName:- [ " + value + " ] from element: " + elemName);
 			}
@@ -353,7 +353,7 @@ public class ElementUtil {
 		String value = "";
 		try {
 
-			value = driver.findElement(by).getCssValue(propertyName);
+			value = DriverFactory.getDriver().findElement(by).getCssValue(propertyName);
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get CssValue:- [ " + value + " ] from element: " + by);
 			}
@@ -369,7 +369,7 @@ public class ElementUtil {
 	public static String getAttribute(By by, String elemName, String propertyName, boolean printToReport) {
 		String value = "";
 		try {
-			value = driver.findElement(by).getAttribute(propertyName);
+			value = DriverFactory.getDriver().findElement(by).getAttribute(propertyName);
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get Attribute:- [ " + value + " from element: ] " + elemName);
 			}
@@ -386,7 +386,7 @@ public class ElementUtil {
 	public static Dimension getSize(By by, boolean printToReport) {
 		Dimension dimensions;
 		try {
-			dimensions = driver.findElement(by).getSize();
+			dimensions = DriverFactory.getDriver().findElement(by).getSize();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("Get Size:- [ " + dimensions + " ] from element: " + by);
 			}
@@ -402,7 +402,7 @@ public class ElementUtil {
 		Point point;
 		try {
 			waitForElementPresent(by, elemName, false);
-			point = driver.findElement(by).getLocation();
+			point = DriverFactory.getDriver().findElement(by).getLocation();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog(
 						"Get Location:- [ X cordinate : " + point.x + "Y cordinate: " + point.y + " " + elemName);
@@ -416,10 +416,10 @@ public class ElementUtil {
 	}
 
 	public static void selectValueFromDropdown(By dropdown, String elemName, String dropdownValue) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(30));
 		try {
 			wait.until(ExpectedConditions.presenceOfElementLocated(dropdown));
-			WebElement selectElem = driver.findElement(dropdown);
+			WebElement selectElem = DriverFactory.getDriver().findElement(dropdown);
 			Select select = new Select(selectElem);
 			select.selectByValue(dropdownValue);
 			ExtentCucumberAdapter
@@ -432,7 +432,7 @@ public class ElementUtil {
 	}
 
 	public static List<String> getDropdownText(By by, boolean printToReport) {
-		List<WebElement> we = driver.findElements(by);
+		List<WebElement> we = DriverFactory.getDriver().findElements(by);
 		List<String> ls = new ArrayList<String>();
 		for (WebElement a : we) {
 			ls.add(a.getText());
@@ -445,7 +445,7 @@ public class ElementUtil {
 
 	public static void scrollToBottomOfPage(boolean printToReport) {
 		try {
-			new Actions(driver).sendKeys(Keys.PAGE_DOWN).build().perform();
+			new Actions(DriverFactory.getDriver()).sendKeys(Keys.PAGE_DOWN).build().perform();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("scroll To Bottom Of Page");
 			}
@@ -457,7 +457,7 @@ public class ElementUtil {
 	public static void scrollHorizontalPage(boolean printToReport) {
 		try {
 
-			new Actions(driver).sendKeys(Keys.ARROW_RIGHT).build().perform();
+			new Actions(DriverFactory.getDriver()).sendKeys(Keys.ARROW_RIGHT).build().perform();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("scroll To horizontally");
 			}
@@ -468,7 +468,7 @@ public class ElementUtil {
 
 	public static void pressEnter() {
 		try {
-			new Actions(driver).sendKeys(Keys.ENTER).build().perform();
+			new Actions(DriverFactory.getDriver()).sendKeys(Keys.ENTER).build().perform();
 			ExtentCucumberAdapter.addTestStepLog("press enter");
 		} catch (Exception e) {
 			Assert.assertFalse("FAIL:- to scroll horizontally ", true);
@@ -478,7 +478,7 @@ public class ElementUtil {
 	public static void pressTab() {
 		try {
 			ElementUtil.waitTime(2);
-			new Actions(driver).sendKeys(Keys.TAB).build().perform();
+			new Actions(DriverFactory.getDriver()).sendKeys(Keys.TAB).build().perform();
 			ExtentCucumberAdapter.addTestStepLog("press Tab");
 		} catch (Exception e) {
 			Assert.assertFalse("FAIL:- to scroll horizontally ", true);
@@ -487,9 +487,9 @@ public class ElementUtil {
 
 	public static void moveMoveClick(By by, boolean printToReport) {
 		try {
-			new Actions(driver).moveToElement(driver.findElement(by))
-					.click(driver.findElement(by));
-			new Actions(driver).perform();
+			new Actions(DriverFactory.getDriver()).moveToElement(DriverFactory.getDriver().findElement(by))
+					.click(DriverFactory.getDriver().findElement(by));
+			new Actions(DriverFactory.getDriver()).perform();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("clicked element using mouse operation");
 			}
@@ -500,7 +500,7 @@ public class ElementUtil {
 
 	public static void mouseMove(By by, boolean printToReport) {
 		try {
-			new Actions(driver).moveToElement(driver.findElement(by)).perform();
+			new Actions(DriverFactory.getDriver()).moveToElement(DriverFactory.getDriver().findElement(by)).perform();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("mouse to element using actions");
 			}
@@ -510,24 +510,24 @@ public class ElementUtil {
 	}
 
 	public static void highlightElement(By by, boolean printToReport) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.background='yellow'",
-				driver.findElement(by));
+		((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].style.background='yellow'",
+				DriverFactory.getDriver().findElement(by));
 	}
 
 	public static void highlightElementFail(By by, boolean printToReport) {
-		WebElement elem = driver.findElement(by);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", elem);
+		WebElement elem = DriverFactory.getDriver().findElement(by);
+		((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].style.border='3px solid red'", elem);
 	}
 
 	public static void highlightElementPass(By by, boolean printToReport) {
-		WebElement elem = driver.findElement(by);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid green'", elem);
+		WebElement elem = DriverFactory.getDriver().findElement(by);
+		((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].style.border='3px solid green'", elem);
 	}
 
 	public static void jsClick(By by, String elemName) {
 		try {
 //			waitForElementPresent(by, elemName, false);
-			element = driver.findElement(by);
+			element = DriverFactory.getDriver().findElement(by);
 			jse.executeScript("arguments[0].click();", element);
 			ExtentCucumberAdapter.addTestStepLog(elemClickSuccessMsg + elemName);
 
@@ -540,7 +540,7 @@ public class ElementUtil {
 	public static void jsType(By by, String valueToType, boolean printToReport) {
 		try {
 
-			WebElement elemToType = driver.findElement(by);
+			WebElement elemToType = DriverFactory.getDriver().findElement(by);
 			String js = "arguments[0].setAttribute('value','" + valueToType + "')";
 			jse.executeScript(js, elemToType);
 		} catch (Exception e) {
@@ -550,7 +550,7 @@ public class ElementUtil {
 
 	public static void scrollToTopOfPage(boolean printToReport) {
 		try {
-			new Actions(driver).sendKeys(Keys.PAGE_UP).build().perform();
+			new Actions(DriverFactory.getDriver()).sendKeys(Keys.PAGE_UP).build().perform();
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("scroll To top Of Page");
 			}
@@ -561,7 +561,7 @@ public class ElementUtil {
 
 	public static void waitForElementPresent(By by, String elemName, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(75));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(75));
 		try {
 			wait.until(ExpectedConditions.presenceOfElementLocated(by));
 			if (printToReport) {
@@ -574,11 +574,10 @@ public class ElementUtil {
 
 	public static boolean isElementDisplayed(By by, String elemName) {
 		boolean isDisplayed = false;
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		try {
-			isDisplayed = driver.findElement(by).isDisplayed();
+			isDisplayed = DriverFactory.getDriver().findElement(by).isDisplayed();
 			ExtentCucumberAdapter.addTestStepLog(elemDisplayedSuccessMsg + elemName);
-
 		} catch (Exception e) {
 			ExtentCucumberAdapter.addTestStepLog(elemDisplayedFailureMsg + elemName + ": " + e.toString());
 			isDisplayed = false;
@@ -588,9 +587,9 @@ public class ElementUtil {
 
 	public static boolean isElementPresent(By by, String elemName) {
 		boolean flag = false;
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		try {
-			flag = driver.findElement(by) != null;
+			flag = DriverFactory.getDriver().findElement(by) != null;
 			ExtentCucumberAdapter.addTestStepLog(elemPresentSuccessMsg + elemName);
 		} catch (Exception e) {
 			ExtentCucumberAdapter.addTestStepLog(elemPresentFailureMsg + elemName + ": " + e.toString());
@@ -602,9 +601,9 @@ public class ElementUtil {
 	public static boolean isElementPresent(By by, String elemName, int waitTime) {
 		boolean elemPresent = false;
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(waitTime));
 			wait.until(ExpectedConditions.presenceOfElementLocated(by));
-			driver.findElement(by);
+			DriverFactory.getDriver().findElement(by);
 			ExtentCucumberAdapter.addTestStepLog(elemPresentSuccessMsg + elemName);
 			elemPresent = true;
 		} catch (Exception e) {
@@ -623,7 +622,7 @@ public class ElementUtil {
 				System.out.println("Page has not loaded yet ");
 			}
 			// again check page state
-			if (((JavascriptExecutor) driver).executeScript("return document.readyState").toString()
+			if (((JavascriptExecutor) DriverFactory.getDriver()).executeScript("return document.readyState").toString()
 					.equals("complete")) {
 				break;
 			}
@@ -632,7 +631,7 @@ public class ElementUtil {
 
 	public static void waitForElementVisible(By by, String elemName, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(30));
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 			if (printToReport) {
@@ -645,7 +644,7 @@ public class ElementUtil {
 
 	public static void waitForElementVisible(WebElement element, String elemName, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(30));
 		try {
 			wait.until(ExpectedConditions.visibilityOf(element));
 			if (printToReport) {
@@ -658,7 +657,7 @@ public class ElementUtil {
 
 	public static void waitForElementClickable(By by, String elemName, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(30));
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(by));
 			if (printToReport) {
@@ -672,7 +671,7 @@ public class ElementUtil {
 	public static boolean waitForElementVisibleReturn(By by) {
 		boolean flag = false;
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 			flag = true;
@@ -686,7 +685,7 @@ public class ElementUtil {
 
 	public static void waitForElementInvisible(By by, String elemName, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(60));
 		try {
 			wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(by)));
 			if (printToReport) {
@@ -699,8 +698,8 @@ public class ElementUtil {
 
 	public static void scrollToElement(By by, String elemName, boolean printToReport) {
 		try {
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
-					driver.findElement(by));
+			((JavascriptExecutor) DriverFactory.getDriver()).executeScript("arguments[0].scrollIntoView();",
+					DriverFactory.getDriver().findElement(by));
 			if (printToReport) {
 				ExtentCucumberAdapter.addTestStepLog("PASS: Successfully scrolled to element " + elemName);
 			}
@@ -711,7 +710,7 @@ public class ElementUtil {
 
 	public static void waitForFrame(By by, String frame, boolean printToReport) {
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(60));
 		try {
 			wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
 			if (printToReport) {
@@ -832,8 +831,8 @@ public class ElementUtil {
 	public static void credentialType(By by, String elemName, String encodedCredential) {
 		try {
 			waitForElementPresent(by, elemName, false);
-			driver.findElement(by).clear();
-			driver.findElement(by).sendKeys(decodeString(encodedCredential));
+			DriverFactory.getDriver().findElement(by).clear();
+			DriverFactory.getDriver().findElement(by).sendKeys(decodeString(encodedCredential));
 			ExtentCucumberAdapter.addTestStepLog(
 					"Encoded credential:- [ " + encodedCredential + " ]  is decrypted & typed to element: " + elemName);
 		} catch (Exception e) {
@@ -866,14 +865,14 @@ public class ElementUtil {
 	}
 
 	public static Boolean checkButtonEnabled(By by) {
-		WebElement element = driver.findElement(by);
+		WebElement element = DriverFactory.getDriver().findElement(by);
 		System.out.println("IsEnabled:- " + element.isEnabled());
 		return element.isEnabled();
 	}
 
 	public static List<String> getStringList(By by) {
 
-		List<WebElement> lst = driver.findElements(by);
+		List<WebElement> lst = DriverFactory.getDriver().findElements(by);
 		List<String> strings = new ArrayList<String>();
 		for (WebElement e : lst) {
 			strings.add(e.getText());
@@ -882,17 +881,17 @@ public class ElementUtil {
 	}
 
 	public static void findElements(By by) {
-		List<WebElement> elements = driver.findElements(by);
+		List<WebElement> elements = DriverFactory.getDriver().findElements(by);
 		for (WebElement element : elements) {
 			Assert.assertTrue(!(element.isSelected()));
 		}
 	}
 
 	public static void waitForElementNotPresent(By by) {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 		List<WebElement> dynamicElement = null;
 		for (int i = 0; i < 60; i++) {
-			dynamicElement = driver.findElements(by);
+			dynamicElement = DriverFactory.getDriver().findElements(by);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ex) {
@@ -903,7 +902,7 @@ public class ElementUtil {
 				break;
 			}
 		}
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 	}
 
 	public static void waitForElementText(By by, String Text) {
@@ -918,7 +917,7 @@ public class ElementUtil {
 
 	public static void jsScrollToElement(By by) {
 		try {
-			WebElement element = driver.findElement(by);
+			WebElement element = DriverFactory.getDriver().findElement(by);
 			jse.executeScript("arguments[0].scrollIntoView(true);", element);
 			ExtentCucumberAdapter.addTestStepLog("Move to element using js command " + by);
 		} catch (Exception e) {
@@ -941,7 +940,7 @@ public class ElementUtil {
 
 	public static void getScreenshot(Scenario scenario, String FileName) {
 		try {
-			byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+			byte[] sourcePath = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.BYTES);
 			scenario.attach(sourcePath, "image/png", FileName);
 			ExtentCucumberAdapter.addTestStepLog("PASS: Take screenshot as requested");
 		} catch (Exception e) {
@@ -951,7 +950,7 @@ public class ElementUtil {
 
 	public static void GoOutOfEmbededFrame() {
 		try {
-			driver.switchTo().defaultContent();
+			DriverFactory.getDriver().switchTo().defaultContent();
 			ExtentCucumberAdapter.addTestStepLog("Move out of embedded frame is successfull");
 		} catch (Exception e) {
 			Assert.assertFalse("Failed to move out of embedded frame " + e.toString(), true);
@@ -961,7 +960,7 @@ public class ElementUtil {
 	public static void GoToEmbededFrame(String elemName) {
 		try {
 			waitForElementPresent(By.xpath("//iframe"), elemName, false);
-			driver.switchTo().frame("embeddedTool");
+			DriverFactory.getDriver().switchTo().frame("embeddedTool");
 			ExtentCucumberAdapter.addTestStepLog("Move to embedded frame is successfull");
 		} catch (Exception e) {
 			Assert.assertFalse("Failed to move to embedded frame " + e.toString(), true);
@@ -970,9 +969,9 @@ public class ElementUtil {
 
 	public void jsFocusClick(By by, String elemName) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			WebElement element = driver.findElement(by);
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+			JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getDriver();
+			WebElement element = DriverFactory.getDriver().findElement(by);
 			wait.until(ExpectedConditions.elementToBeClickable(by));
 			jse.executeScript("arguments[0].focus();", element);
 			jse.executeScript("arguments[0].click();", element);
@@ -984,9 +983,9 @@ public class ElementUtil {
 
 	public void jsEnterText(By by, String value, String elemName) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			WebElement element = driver.findElement(by);
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+			JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getDriver();
+			WebElement element = DriverFactory.getDriver().findElement(by);
 			wait.until(ExpectedConditions.elementToBeClickable(by));
 			ElementUtil.scrollToElement(by, "Expected Element", true);
 			jse.executeScript("arguments[0].value=\"" + value + "\";", element);
@@ -999,9 +998,9 @@ public class ElementUtil {
 	public static List<WebElement> getElementsList(By by, String elemName) {
 		List<WebElement> expElementsList = null;
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(30));
 			wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
-			final List<WebElement> elemList = driver.findElements(by);
+			final List<WebElement> elemList = DriverFactory.getDriver().findElements(by);
 			expElementsList = elemList;
 		} catch (Exception e) {
 			Assert.assertFalse("Failed to get list of elements; " + elemName + e.toString(), true);
